@@ -1,0 +1,18 @@
+development:
+  adapter: postgresql
+  database: webapp
+  username: rohit
+  password: rohit
+
+test:
+  adapter: postgresql
+  database: webapp
+  username: rohit
+  password: rohit
+
+production:
+  adapter: postgresql
+  database: webapp
+  username: rohit
+  password: rohit
+
