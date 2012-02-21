@@ -1,6 +1,11 @@
-<h1>Listing questions</h1>
+<div class="page-header">
+  <h1>QnA Forum Questions</h1>
+</div>
+<div style="margin-bottom: 10px;">
+  <%= link_to 'Ask Question', new_question_path ,:class=> 'btn'%>
+</div>
 
-<table>
+<table style="width: 700px;">
   <tr>
     <th>Question</th>
     <th>Rank</th>
@@ -10,18 +15,17 @@
     <th></th>
   </tr>
 
-<% @questions.each do |question| %>
-  <tr>
-    <td><%= question.question %></td>
-    <td><%= question.rank %></td>
-    <td><%= question.user_id %></td>
-    <td><%= link_to 'Show', question %></td>
-    <td><%= link_to 'Edit', edit_question_path(question) %></td>
-    <td><%= link_to 'Destroy', question, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+  <% @questions.each do |question| %>
+    <tr>
+      <td><%= question.question %></td>
+      <td><%= question.rank %></td>
+      <td><%= question.user_id %></td>
+      <td><%= link_to 'Show', question %></td>
+      <td><%= link_to 'Edit', edit_question_path(question) %></td>
+      <td><%= link_to 'Destroy', question, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
 </table>
+<%= will_paginate @questions %>
 
 <br />
-
-<%= link_to 'New Question', new_question_path %>

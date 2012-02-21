@@ -1,33 +1,45 @@
 <p id="notice"><%= notice %></p>
+<div class="page-header question-block">
+  <div id="item-ranking">
+    <ul class="ranking-block">
+      <li><a class="vote-up-off" title="This question shows research effort; it is useful and clear (click again to undo)"><%= image_tag('up.jpg') %></a></li>
+      <li class="rank-voted"><%= @question.rank %></li>
+      <li><a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful (click again to undo)"><%= image_tag('down.jpg') %></a></li>
+    </ul>    
+  </div>
+  <h2><%= @question.question %></h2>
 
-<p>
-  <b>Question:</b>
-  <%= @question.question %>
-</p>
 
-<p>
-  <b>Rank:</b>
-  <%= @question.rank %>
-</p>
+  <%= link_to 'Edit', edit_question_path(@question) %> |
+  <%= link_to 'Back', questions_path %>
+</div>
+
+
 
 <p>
 <h2> Answers</h2><br />
 <% @answers.each do |ans| %>
-  <p>
-    <%= ans.answer %>
-    <%= link_to 'edit', edit_question_answer_path(@question,ans) %>
-    <%= link_to 'Destroy', [@question,ans], confirm: 'Are you sure?', method: :delete %>
-  </p><br />
+  <div class="question-block page-header">
+    <div id="item-ranking">
+      <ul class="ranking-block">
+        <li><a class="vote-up-off" title="This question shows research effort; it is useful and clear (click again to undo)"><%= image_tag('up.jpg') %></a></li>
+        <li class="rank-voted"><%= @question.rank %></li>
+        <li><a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful (click again to undo)"><%= image_tag('down.jpg') %></a></li>
+      </ul>
+    </div>
+    <p>
+      <%= h(ans.answer) %><br /><br />
+      <%= link_to 'Edit', edit_question_answer_path(@question,ans) %> |
+      <%= link_to 'Destroy', [@question,ans], confirm: 'Are you sure?', method: :delete %>
+    </p>
+  </div>
 <%end%>
 </p>
 
-
-
-<%= link_to 'Edit', edit_question_path(@question) %> |
-<%= link_to 'Back', questions_path %>
-
-
-<%= form_for([@question,@answer]) do |f| %>
+<br />
+<br /><br />
+<h2>Post new answer here</h2>
+<%= form_for([@question,@answer],:html => {:class => 'well'}) do |f| %>
   <% if @answer.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
@@ -39,12 +51,9 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :answer %><br />
-    <%= f.text_area :answer %>
-  </div>
+  <%= f.label :answer ,:class => 'control-label',:style => 'padding-right:10px;'%>
+  <%= f.text_area :answer ,{:class => 'input-xlarge',:rows => "7"} %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit ("Post Answer")%>
   </div>
 <% end %>
