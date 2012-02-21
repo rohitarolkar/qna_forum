@@ -9,7 +9,7 @@
   <tr>
     <th>Question</th>
     <th>Rank</th>
-    <th>User</th>
+    <th>Answers</th>
     <th></th>
     <th></th>
     <th></th>
@@ -19,7 +19,7 @@
     <tr>
       <td><%= link_to question.question, question %></td>
       <td><%= question.rank %></td>
-      <td><%= question.user_id %></td>
+      <td><%= question.answers.count %></td>
       <td><%= link_to 'Show', question %></td>
       <td><%= link_to 'Edit', edit_question_path(question) %></td>
       <td><%= link_to 'Destroy', question, confirm: 'Are you sure?', method: :delete %></td>

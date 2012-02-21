@@ -5,3 +5,23 @@
  *= require_self
  *= require_tree . 
 */
+
+
+.sign_up_link{
+    font-weight: bold
+}
+.alert {
+    padding: 8px 35px 8px 14px;
+    margin-bottom: 18px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    background-color: #FCF8E3;
+    border: 1px solid #FBEED5;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.alert-success{
+    color: #468847;
+    background-color: #DFF0D8;
+    border-color: #D6E9C6;
+}

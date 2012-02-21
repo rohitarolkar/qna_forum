@@ -1,6 +1,7 @@
 class AnswersController < ApplicationController
   # GET /answers
   # GET /answers.json
+  
   def index
     @answers = Answer.all
 
@@ -44,10 +45,11 @@ class AnswersController < ApplicationController
   def create
     @question = Question.find(params[:question_id])
     @answer = @question.answers.build(params[:answer])
+    @answer.user_id = current_user.id
 
     respond_to do |format|
       if @answer.save
-        format.html { redirect_to @question, notice: 'Answer was successfully created.' }
+        format.html { redirect_to @question, notice: 'Answer was successfully posted.' }
         format.json { render json: @question, status: :created, location: @question }
       else
         format.html { render action: "new" }
@@ -64,7 +66,7 @@ class AnswersController < ApplicationController
 
     respond_to do |format|
       if @answer.update_attributes(params[:answer])
-        format.html { redirect_to @question, notice: 'Answer was successfully updated.' }
+        format.html { redirect_to @question, notice: 'Answer was successfully posted.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

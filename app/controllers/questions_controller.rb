@@ -1,8 +1,9 @@
 class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
+  before_filter :authenticate_user!, :except => [:show,:edit,:update,:index]
   def index
-    @questions = Question.paginate(:page => params[:page], :per_page => 6)
+    @questions = Question.order('created_at desc').paginate(:page => params[:page], :per_page => 8)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -42,11 +43,11 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = Question.new(params[:question])
+    @question = current_user.questions.new(params[:question])
 
     respond_to do |format|
       if @question.save
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
+        format.html { redirect_to @question, notice: 'Question was successfully posted.' }
         format.json { render json: @question, status: :created, location: @question }
       else
         format.html { render action: "new" }
@@ -62,7 +63,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.update_attributes(params[:question])
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
+        format.html { redirect_to @question, notice: 'Question was successfully posted.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -86,11 +87,11 @@ class QuestionsController < ApplicationController
   def rank_me
     if params[:question_id]
       @question = Question.find(params[:question_id])
-      @question = Rank.rank_me(@question,params)
+      @question = Rank.rank_me(@question,params,current_user.id)
     end
     if params[:answer_id]
       @answer = Answer.find(params[:answer_id])
-      @answer = Rank.rank_me(@answer,params)
+      @answer = Rank.rank_me(@answer,params,current_user.id)
     end    
   end
   

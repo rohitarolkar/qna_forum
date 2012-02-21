@@ -14,11 +14,21 @@
           <%=link_to "QnA Forum" ,root_url, {:class => 'brand'}%>
           <ul class="nav">          
           </ul>
-          <form action="" class="pull-right">
-            <input class="input-small" type="text" placeholder="Username">
-            <input class="input-small" type="password" placeholder="Password">
-            <button class="btn" type="submit">Sign in</button>
-          </form>
+          <% if user_signed_in? %>
+            <ul class="nav"  style="float: right;">
+              <li style="padding-top: 10px;">Signed in as <%= current_user.email %>. Not you? <%= link_to "Sign Out", destroy_user_session_path, :style => 'display:inline;' %></li>
+            </ul>
+          <% else %>
+            <ul class="nav sign_up_nav"  style="float:right;">
+              <li><%= link_to "Sign Up", new_user_registration_path,:class => 'sign_up_link', :style => ''%></li>
+            </ul>
+            <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => "pull-right"}) do |f| %>
+              <%= f.text_field :email,:placeholder => "email" ,:style => 'width:150px;' %>
+              <%= f.password_field :password ,:placeholder => "password",:style => 'width:150px;' %>
+              <%= f.submit "Sign in" %>
+            <% end %>
+
+          <% end %>
         </div>
       </div>
     </div>
