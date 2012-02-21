@@ -2,14 +2,12 @@
 <div class="page-header question-block">
   <div id="item-ranking">
     <ul class="ranking-block">
-      <li><a class="vote-up-off" title="This question shows research effort; it is useful and clear (click again to undo)"><%= image_tag('up.jpg') %></a></li>
-      <li class="rank-voted"><%= @question.rank %></li>
-      <li><a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful (click again to undo)"><%= image_tag('down.jpg') %></a></li>
+      <li><%= link_to image_tag('up.jpg'), {:controller => "questions", :action => "rank_me", :vote_up => true ,:question_id =>  @question.id },:title => 'This question shows research effort; it is useful and clear (click again to undo)',:class => 'vote-up-off',:remote => true %></li>
+      <li id="question_<%= @question.id%>" class="rank-voted"><%= @question.rank %></li>
+      <li><%= link_to image_tag('down.jpg'), {:controller => "questions", :action => "rank_me", :vote_down => true ,:question_id =>  @question.id },:title => 'This question does not show any research effort; it is unclear or not useful (click again to undo)',:class => 'vote-down-off',:remote => true %></li>
     </ul>    
   </div>
   <h2><%= @question.question %></h2>
-
-
   <%= link_to 'Edit', edit_question_path(@question) %> |
   <%= link_to 'Back', questions_path %>
 </div>
@@ -22,11 +20,14 @@
   <div class="question-block page-header">
     <div id="item-ranking">
       <ul class="ranking-block">
-        <li><a class="vote-up-off" title="This question shows research effort; it is useful and clear (click again to undo)"><%= image_tag('up.jpg') %></a></li>
-        <li class="rank-voted"><%= @question.rank %></li>
-        <li><a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful (click again to undo)"><%= image_tag('down.jpg') %></a></li>
+        <li><%= link_to image_tag('up.jpg'), {:controller => "questions", :action => "rank_me", :vote_up => true ,:answer_id =>  ans.id },:title => 'This answer shows research effort; it is useful and clear (click again to undo)',:class => 'vote-up-off',:remote => true %></li>
+        <li id="answer_<%= ans.id %>"class="rank-voted"><%= ans.rank %></li>
+        <li><%= link_to image_tag('down.jpg'), {:controller => "questions", :action => "rank_me", :vote_down => true ,:answer_id =>  ans.id },:title => 'This answer does not show any research effort; it is unclear or not useful (click again to undo)',:class => 'vote-up-off',:remote => true %></li>
       </ul>
     </div>
+
+    <%= link_to "Rank Here", {:controller => "questions", :action => "rank_me", :vote_up => true ,:answer_id =>  ans.id }, :class => 'vote-up-off',:remote => true %>
+
     <p>
       <%= h(ans.answer) %><br /><br />
       <%= link_to 'Edit', edit_question_answer_path(@question,ans) %> |

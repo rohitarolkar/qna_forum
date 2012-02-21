@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120220152635) do
+ActiveRecord::Schema.define(:version => 20120221114975) do
 
   create_table "answers", :force => true do |t|
     t.text     "answer"
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(:version => 20120220152635) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "ranks", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "rankable_id"
+    t.string   "rankable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "vote"
   end
 
 end

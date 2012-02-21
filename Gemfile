@@ -22,7 +22,6 @@ gem 'jquery-rails'
 gem 'execjs'
 gem 'therubyracer'
 gem 'will_paginate', '~> 3.0'
-
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -32,8 +31,11 @@ gem 'will_paginate', '~> 3.0'
 # Deploy with Capistrano
 # gem 'capistrano'
 
-# To use debugger
+group :development do
+  # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'pry'
+end
 
 group :test do
   # Pretty printed test output

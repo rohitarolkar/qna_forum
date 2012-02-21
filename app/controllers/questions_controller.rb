@@ -14,7 +14,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1.json
   def show
     @question = Question.find(params[:id])
-    @answers = @question.answers.all
+    @answers = @question.answers.order('rank desc')
     @answer = @question.answers.build
     
     respond_to do |format|
@@ -82,4 +82,16 @@ class QuestionsController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def rank_me
+    if params[:question_id]
+      @question = Question.find(params[:question_id])
+      @question = Rank.rank_me(@question,params)
+    end
+    if params[:answer_id]
+      @answer = Answer.find(params[:answer_id])
+      @answer = Rank.rank_me(@answer,params)
+    end    
+  end
+  
 end

@@ -17,7 +17,7 @@
 
   <% @questions.each do |question| %>
     <tr>
-      <td><%= question.question %></td>
+      <td><%= link_to question.question, question %></td>
       <td><%= question.rank %></td>
       <td><%= question.user_id %></td>
       <td><%= link_to 'Show', question %></td>
