@@ -1,14 +1,17 @@
 class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
-  before_filter :authenticate_user!, :except => [:show,:edit,:update,:index]
+  before_filter :authenticate_user!, :except => [:show,:index]
   before_filter :load_basics
+  before_filter :check_if_owner, :only => [ :edit ,:update, :delete]
   def index
     @questions = Question.order('created_at desc').paginate(:page => params[:page], :per_page => 8)
-
+    @rescent_answers = Answer.order('created_at desc').limit(4)
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @questions }
+      format.js
     end
   end
 
@@ -38,7 +41,7 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1/edit
   def edit
-    @question = Question.find(params[:id])
+    @question ||= Question.find(params[:id])
   end
 
   # POST /questions
@@ -60,7 +63,7 @@ class QuestionsController < ApplicationController
   # PUT /questions/1
   # PUT /questions/1.json
   def update
-    @question = Question.find(params[:id])
+    @question ||= Question.find(params[:id])
 
     respond_to do |format|
       if @question.update_attributes(params[:question])
@@ -102,5 +105,14 @@ class QuestionsController < ApplicationController
   def load_basics
     @current_user = current_user
   end
-  
+
+  def check_if_owner
+    @question ||= Question.find(params[:id])
+    if current_user.try(:id) != @question.user_id
+      respond_to do |format|
+        format.html { redirect_to @question, notice: 'You cannot edit this question' }
+        format.json { head :ok }
+      end
+    end
+  end
 end

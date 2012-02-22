@@ -1,28 +1,69 @@
+<script>
+  $(document).ready(function() {
+    window.setInterval(yourfunction, 10000);
+    function yourfunction2() {
+      $.ajax({
+        url: '/questions', type: 'get',
+        success: function(data){
+          //alert(data['question']);
+          //$('#rescent-posts tr:first').before('<tr><td>Stuff</td></tr>')
+        }
+      });
+      return false;
+    }
+  });
+</script>
 <div class="page-header">
   <h1>QnA Forum Questions</h1>
 </div>
 <div style="float:left;">
-  <div style="margin-bottom: 10px;">
+  <div style="margin-bottom: 10px; float: right;">
     <%= link_to 'Ask Question', new_question_path ,:class=> 'btn'%>
   </div>
 
   <table style="width: 630px;">
-    <tr>
-      <th>Question</th>
-      <th>Rank</th>
-      <th>Answers</th>
-    </tr>
+
+    <h4>Top Questions</h4>
 
     <% @questions.each do |question| %>
       <tr>
         <td>
-          <%= link_to question.header, question %><br/>
-          <small style="color:  #999999;"><%= truncate(question.question, :length => 100, :omission => '...') %></small>
+          <div class="question-summary">
+            <div class="votes">
+              <div class="mini-counts"><%= question.rank %></div>
+              <div>votes</div>
+            </div>
+            <div class="status answered">
+              <div class="mini-counts"><%= question.answers.count %></div>
+              <div>answers</div>
+            </div>
+            <div class="summary">
+              <%= link_to question.header, question %>
+            </div>
+            <div class="started-thread">
+              Posted by: <small class="help-inline"><%= user_name(question.user_id) %></small>
+              <span class="reputation-score" title="karma <%= user_karma(question.user_id) %>"><%= user_karma(question.user_id) %></span>
+            </div>
+          </div>
         </td>
-        <td><%= question.rank %></td>
-        <td><%= question.answers.count %></td>
       </tr>
     <% end %>
   </table>
   <%= will_paginate @questions %>
+</div>
+<div class="right-feed-container">
+  <div id="rescent-activity">
+
+    <h4>Recent Activities</h4>
+    <table id="rescent-posts">
+      <% @rescent_answers.each do |ans| %>
+        <tr>
+          <td>
+            <b><%= link_to ans.question.header, ans.question ,:style => 'color:black'%></b><br/>
+            <%= truncate(ans.answer, :length => 80, :omission => '...') %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
 </div>

@@ -11,32 +11,61 @@
   </div>
   <h2><%= @question.header %></h2>
   <p><%= @question.question %></p><br/>
+  <div class="started-thread">
+    Posted by: <small class="help-inline"><%= user_name(@question.user_id) %></small>
+    <span class="reputation-score" title="karma <%= user_karma(@question.user_id) %>"><%= user_karma(@question.user_id) %></span>
+  </div>
   <%= link_to 'Edit', edit_question_path(@question) %> |
   <%= link_to 'Back', questions_path %>
 </div>
 
+  <table style="width:700px;">
+  <h2> Answers</h2><br />
+  <% @answers.each do |ans| %>
 
+    <tr>
+      <td>
+        <div class="question-block answer-block">
+          <div id="item-ranking">
+            <ul class="ranking-block">
+              <li><%= link_to image_tag('up.jpg'), {:controller => "questions", :action => "rank_me", :vote_up => true ,:answer_id =>  ans.id },:title => 'This answer shows research effort; it is useful and clear (click again to undo)',:class => 'vote-up-off',:remote => true %></li>
+              <li id="answer_<%= ans.id %>"class="rank-voted"><%= ans.rank %></li>
+              <li><%= link_to image_tag('down.jpg'), {:controller => "questions", :action => "rank_me", :vote_down => true ,:answer_id =>  ans.id },:title => 'This answer does not show any research effort; it is unclear or not useful (click again to undo)',:class => 'vote-up-off',:remote => true %></li>
+            </ul>
+          </div>
 
-<p>
-<h2> Answers</h2><br />
-<% @answers.each do |ans| %>
-  <div class="question-block page-header">
-    <div id="item-ranking">
-      <ul class="ranking-block">
-        <li><%= link_to image_tag('up.jpg'), {:controller => "questions", :action => "rank_me", :vote_up => true ,:answer_id =>  ans.id },:title => 'This answer shows research effort; it is useful and clear (click again to undo)',:class => 'vote-up-off',:remote => true %></li>
-        <li id="answer_<%= ans.id %>"class="rank-voted"><%= ans.rank %></li>
-        <li><%= link_to image_tag('down.jpg'), {:controller => "questions", :action => "rank_me", :vote_down => true ,:answer_id =>  ans.id },:title => 'This answer does not show any research effort; it is unclear or not useful (click again to undo)',:class => 'vote-up-off',:remote => true %></li>
-      </ul>
-    </div>
-    <p>
-      <%= h(ans.answer) %><br /><br />
-      <%= link_to 'Edit', edit_question_answer_path(@question,ans) %> |
-      <%= link_to 'Destroy', [@question,ans], confirm: 'Are you sure?', method: :delete %>
-    </p>
-  </div>
-<%end%>
-</p>
+          <div style="float: right; width:555px;">
+            <div class="answer-info">
+              <%= h(ans.answer) %>
+            </div>
 
+            <div class="scaffold-links">
+              <%= link_to 'Edit', edit_question_answer_path(@question,ans) %> |
+              <%= link_to 'Destroy', [@question,ans], confirm: 'Are you sure?', method: :delete %>
+            </div>
+
+            <div class="started-thread">
+              Posted by: <small class="help-inline"><%= user_name(ans.user_id) %></small>
+              <span class="reputation-score" title="karma <%= user_karma(ans.user_id) %>"><%= user_karma(ans.user_id) %></span>
+            </div>
+
+            <div style="clear:both;"></div>
+            <div class="error-notification supernovabg" style="display: block;visibility: hidden;">
+              <h4>Please
+                <a href="">login or register</a>
+                to vote for this post.
+              </h4>
+              <span class="error-close">(click on this box to dismiss)</span>
+            </div>
+
+          </div>
+
+        </div>
+      </td>
+    </tr>
+  <%end%>
+
+</table>
 <br />
 <br /><br />
 <h2>Post new answer here</h2>

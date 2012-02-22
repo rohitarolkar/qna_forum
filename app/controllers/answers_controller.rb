@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   # GET /answers
   # GET /answers.json
-  
+  before_filter :check_if_owner, :only => [ :edit ,:update, :delete]
   def index
     @answers = Answer.all
 
@@ -36,7 +36,7 @@ class AnswersController < ApplicationController
 
   # GET /answers/1/edit
   def edit
-    @question = Question.find(params[:question_id])
+    @question ||= Question.find(params[:question_id])
     @answer = @question.answers.find(params[:id])
   end
 
@@ -61,7 +61,7 @@ class AnswersController < ApplicationController
   # PUT /answers/1
   # PUT /answers/1.json
   def update
-    @question = Question.find(params[:question_id])
+    @question ||= Question.find(params[:question_id])
     @answer = @question.answers.find(params[:id])
 
     respond_to do |format|
@@ -87,5 +87,14 @@ class AnswersController < ApplicationController
       format.json { head :ok }
     end
   end
-
+  private
+  def check_if_owner
+    @answer ||= Answer.find(params[:id])
+    if current_user.try(:id) != @question.user_id
+      respond_to do |format|
+        format.html { redirect_to @question, notice: 'You cannot edit this question' }
+        format.json { head :ok }
+      end
+    end
+  end
 end
