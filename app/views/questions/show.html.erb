@@ -9,7 +9,8 @@
       <li><%= link_to image_tag('down.jpg'), {:controller => "questions", :action => "rank_me", :vote_down => true ,:question_id =>  @question.id },:title => 'This question does not show any research effort; it is unclear or not useful (click again to undo)',:class => 'vote-down-off',:remote => true %></li>
     </ul>    
   </div>
-  <h2><%= @question.question %></h2>
+  <h2><%= @question.header %></h2>
+  <p><%= @question.question %></p><br/>
   <%= link_to 'Edit', edit_question_path(@question) %> |
   <%= link_to 'Back', questions_path %>
 </div>
@@ -27,9 +28,6 @@
         <li><%= link_to image_tag('down.jpg'), {:controller => "questions", :action => "rank_me", :vote_down => true ,:answer_id =>  ans.id },:title => 'This answer does not show any research effort; it is unclear or not useful (click again to undo)',:class => 'vote-up-off',:remote => true %></li>
       </ul>
     </div>
-
-    <%= link_to "Rank Here", {:controller => "questions", :action => "rank_me", :vote_up => true ,:answer_id =>  ans.id }, :class => 'vote-up-off',:remote => true %>
-
     <p>
       <%= h(ans.answer) %><br /><br />
       <%= link_to 'Edit', edit_question_answer_path(@question,ans) %> |

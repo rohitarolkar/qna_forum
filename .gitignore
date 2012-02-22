@@ -16,3 +16,6 @@
 
 # Ignore Netbeans Files
 /nbproject
+
+# Ignore database.yml
+/config/database.yml

@@ -8,4 +8,15 @@ class User < ActiveRecord::Base
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me
 
   has_many :questions
+  has_many :answers
+
+  def self.can_vote?(user_id)
+    user = User.find(user_id)
+    karma = 0
+    user.answers.each do |ans|
+      karma += ans.rank
+      return true if karma > 10
+    end
+    false if karma < 10
+  end
 end

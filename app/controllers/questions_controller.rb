@@ -2,6 +2,7 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   before_filter :authenticate_user!, :except => [:show,:edit,:update,:index]
+  before_filter :load_basics
   def index
     @questions = Question.order('created_at desc').paginate(:page => params[:page], :per_page => 8)
 
@@ -85,14 +86,21 @@ class QuestionsController < ApplicationController
   end
   
   def rank_me
-    if params[:question_id]
-      @question = Question.find(params[:question_id])
-      @question = Rank.rank_me(@question,params,current_user.id)
+    if @current_user
+      if params[:question_id]
+        @question = Question.find(params[:question_id])
+        @question = Rank.rank_me(@question,params,@current_user.id)
+      end
+      if params[:answer_id]
+        @answer = Answer.find(params[:answer_id])
+        @answer = Rank.rank_me(@answer,params,@current_user.id)
+      end
     end
-    if params[:answer_id]
-      @answer = Answer.find(params[:answer_id])
-      @answer = Rank.rank_me(@answer,params,current_user.id)
-    end    
+  end
+
+  private
+  def load_basics
+    @current_user = current_user
   end
   
 end

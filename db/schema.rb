@@ -15,17 +15,18 @@ ActiveRecord::Schema.define(:version => 20120221192104) do
 
   create_table "answers", :force => true do |t|
     t.text     "answer"
-    t.integer  "rank",        :default => 0
     t.integer  "question_id"
     t.integer  "user_id"
+    t.integer  "rank",        :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "questions", :force => true do |t|
     t.text     "question"
-    t.integer  "rank",       :default => 0
+    t.string   "header"
     t.integer  "user_id"
+    t.integer  "rank",       :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -34,9 +35,9 @@ ActiveRecord::Schema.define(:version => 20120221192104) do
     t.integer  "user_id"
     t.integer  "rankable_id"
     t.string   "rankable_type"
+    t.integer  "vote"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "vote"
   end
 
   create_table "users", :force => true do |t|

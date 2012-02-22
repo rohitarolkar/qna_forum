@@ -1,7 +1,9 @@
-<% if params[:question_id] %>
-  $("#question_<%= params[:question_id]%>").html("<%= @question.rank %>");
-<% end %>
+<% if @current_user %>
+  <% if params[:question_id] %>
+    $("#question_<%= params[:question_id]%>").html("<%= @question.rank %>");
+  <% end %>
 
-<% if params[:answer_id]%>
-  $("#answer_<%= params[:answer_id]%>").html("<%= @answer.rank %>");
+  <% if params[:answer_id]%>
+    $("#answer_<%= params[:answer_id]%>").html("<%= @answer.rank %>");
+  <% end %>
 <% end %>

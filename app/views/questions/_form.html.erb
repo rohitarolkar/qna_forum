@@ -10,7 +10,10 @@
       </ul>
     </div>
   <% end %>
-
+  <div class="field">
+    <%= f.label :header %><br />
+    <%= f.text_field :header ,:style => ''%>
+  </div>
   <div class="field">
     <%= f.label :question %><br />
     <%= f.text_area :question %>
