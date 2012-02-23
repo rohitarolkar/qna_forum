@@ -9,8 +9,8 @@
       <li><%= link_to image_tag('down.jpg'), {:controller => "questions", :action => "rank_me", :vote_down => true ,:question_id =>  @question.id },:title => 'This question does not show any research effort; it is unclear or not useful (click again to undo)',:class => 'vote-down-off',:remote => true %></li>
     </ul>    
   </div>
-  <h2><%= @question.header %></h2>
-  <p><%= @question.question %></p><br/>
+  <h2><%= raw @question.header %></h2>
+  <p><%= raw @question.question %></p><br/>
   <div class="started-thread">
     Posted by: <small class="help-inline"><%= user_name(@question.user_id) %></small>
     <span class="reputation-score" title="karma <%= user_karma(@question.user_id) %>"><%= user_karma(@question.user_id) %></span>

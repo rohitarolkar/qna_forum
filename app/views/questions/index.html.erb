@@ -1,7 +1,7 @@
 <script>
   $(document).ready(function() {
-    window.setInterval(yourfunction, 10000);
-    function yourfunction() {
+    window.setInterval(fetch_answers, 20000);
+    function fetch_answers() {
       $.ajax({
         url: '/questions/update_new_answer', type: 'get',dataType:'script',data: { after_last_posted: $('#rescent-posts tbody tr:first td').attr('class')},
         success: function(){		
@@ -38,7 +38,7 @@
               <div>answers</div>
             </div>
             <div class="summary">
-              <%= link_to question.header, question %>
+              <%= raw link_to question.header, question %>
             </div>
             <div class="started-thread">
               Posted by: <small class="help-inline"><%= user_name(question.user_id) %></small>
@@ -58,8 +58,8 @@
       <% @rescent_answers.each do |ans| %>
         <tr>
           <td class=<%= ans.id %>>
-            <b><%= link_to ans.question.header, ans.question ,:style => 'color:black'%></b><br/>
-            <%= truncate(ans.answer, :length => 80, :omission => '...') %>
+            <b><%= raw link_to ans.question.header, ans.question ,:style => 'color:black'%></b><br/>
+            <%= raw truncate(ans.answer, :length => 80, :omission => '...') %>
           </td>
         </tr>
       <% end %>
