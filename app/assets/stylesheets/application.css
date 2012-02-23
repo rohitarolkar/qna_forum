@@ -25,3 +25,7 @@
     background-color: #DFF0D8;
     border-color: #D6E9C6;
 }
+
+.index-header{
+    min-height:50px;
+}

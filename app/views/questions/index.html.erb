@@ -4,18 +4,16 @@
     function fetch_answers() {
       $.ajax({
         url: '/questions/update_new_answer', type: 'get',dataType:'script',data: { after_last_posted: $('#rescent-posts tbody tr:first td').attr('class')},
-        success: function(){		
-          //alert(data['question']);
-          //$('#rescent-posts tr:first').before('<tr><td><b><a style="color:black" href="/questions/4">header</a></b><br>second_value</td></tr>')
-        }
+        success: function(){}
       });
       return false;
     }
   });
 </script>
-<div class="page-header">
-  <h1>QnA Forum Questions</h1>
+<div class="page-header index-header">
+  <h1 style="float:left;">QnA Forum Questions</h1><%= link_to image_tag('rss.png') ,questions_url(:rss), :style=> 'float:right;'%>
 </div>
+  
 <div style="float:left;">
   <div style="margin-bottom: 10px; float: right;">
     <%= link_to 'Ask Question', new_question_path ,:class=> 'btn'%>

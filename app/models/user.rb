@@ -15,11 +15,11 @@ class User < ActiveRecord::Base
     karma = 0
     user.answers.each do |ans|
       karma += ans.rank
-      return true if karma > 10
+      return true if karma > 9
     end
     user.questions.each do |que|
       karma += que.rank
-      return true if karma > 10
+      return true if karma > 9
     end
     false if karma < 10
   end
