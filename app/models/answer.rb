@@ -7,9 +7,6 @@ class Answer < ActiveRecord::Base
   validates :answer, :presence => true
 
   def self.fetch_new_posts(ans_id)
-    ans ||= Answer.last
-    if ans.id > ans_id.to_i
-      Answer.limit(6)
-    end
+    Answer.where("id > #{ans_id}")
   end
 end
