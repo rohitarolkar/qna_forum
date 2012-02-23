@@ -1,0 +1,5 @@
+<% if @new_posts.present? %>
+  <%  @new_posts.each do |new_post|%>
+    $('#rescent-posts tbody tr:first').before('<tr><td class="<%= new_post.id %>"><b><%= raw escape_javascript(link_to new_post.question.header,new_post.question,:style=>'color:black') %></b><br/><%= raw escape_javascript(truncate(new_post.answer,:length => 80, :omission => '...')) %></td></tr>');
+  <%end%>
+<%end%>

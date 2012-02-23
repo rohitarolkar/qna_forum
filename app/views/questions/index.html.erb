@@ -1,12 +1,12 @@
 <script>
   $(document).ready(function() {
     window.setInterval(yourfunction, 10000);
-    function yourfunction2() {
+    function yourfunction() {
       $.ajax({
-        url: '/questions', type: 'get',
-        success: function(data){
+        url: '/questions/update_new_answer', type: 'get',dataType:'script',data: { after_last_posted: $('#rescent-posts tbody tr:first td').attr('class')},
+        success: function(){		
           //alert(data['question']);
-          //$('#rescent-posts tr:first').before('<tr><td>Stuff</td></tr>')
+          //$('#rescent-posts tr:first').before('<tr><td><b><a style="color:black" href="/questions/4">header</a></b><br>second_value</td></tr>')
         }
       });
       return false;
@@ -53,12 +53,12 @@
 </div>
 <div class="right-feed-container">
   <div id="rescent-activity">
-
+    <%= hidden_field_tag :last_posted, @rescent_answers.first.id %>
     <h4>Recent Activities</h4>
     <table id="rescent-posts">
       <% @rescent_answers.each do |ans| %>
         <tr>
-          <td>
+          <td class=<%= ans.id %>>
             <b><%= link_to ans.question.header, ans.question ,:style => 'color:black'%></b><br/>
             <%= truncate(ans.answer, :length => 80, :omission => '...') %>
           </td>

@@ -87,12 +87,13 @@ class AnswersController < ApplicationController
       format.json { head :ok }
     end
   end
+
   private
   def check_if_owner
     @answer ||= Answer.find(params[:id])
-    if current_user.try(:id) != @question.user_id
+    if current_user.try(:id) != @answer.user_id
       respond_to do |format|
-        format.html { redirect_to @question, notice: 'You cannot edit this question' }
+        format.html { redirect_to @answer, notice: 'You cannot edit this question' }
         format.json { head :ok }
       end
     end

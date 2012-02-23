@@ -7,6 +7,7 @@ QnaForum::Application.routes.draw do
   resources :questions do
     collection do
        get 'rank_me'
+       get 'update_new_answer'
      end
      resources :answers
   end

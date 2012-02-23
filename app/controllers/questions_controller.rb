@@ -4,14 +4,13 @@ class QuestionsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show,:index]
   before_filter :load_basics
   before_filter :check_if_owner, :only => [ :edit ,:update, :delete]
-  def index
+  def index  
     @questions = Question.order('created_at desc').paginate(:page => params[:page], :per_page => 8)
-    @rescent_answers = Answer.order('created_at desc').limit(4)
+    @rescent_answers = Answer.order('created_at desc').limit(6)
     
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @questions }
-      format.js
+      format.html
+      format.json { render json: @new_posts }
     end
   end
 
@@ -100,6 +99,14 @@ class QuestionsController < ApplicationController
       end
     end
   end
+  
+  def update_new_answer
+    @new_posts = Answer.fetch_new_posts(params[:after_last_posted])
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
   private
   def load_basics
@@ -115,4 +122,5 @@ class QuestionsController < ApplicationController
       end
     end
   end
+  
 end
