@@ -1,0 +1,27 @@
+<h1>Contact Author</h1>
+<% if notice %>
+  <div class="alert alert-error" style="background-color: #F2DEDE;">
+    <p><%= notice %></p>
+  </div>
+<% end %>
+<%= form_tag  contact_send_mail_url ,:method => :post do %>
+  <p>
+    <%= label_tag :your_email_adress %><br/>
+    <%= text_field_tag :your_email %>
+  </p>
+
+  <p>
+    <%= label_tag :subject %><br/>
+    <%= text_field_tag :subject %>
+  </p>
+
+  <p>
+    <%= label_tag :email_content %><br/>
+    <%= text_area_tag :email_content %>
+  </p>
+
+  <p>
+    <label></label>
+    <%= submit_tag 'send mail' %>
+  </p>
+<% end %>

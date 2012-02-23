@@ -12,14 +12,14 @@
   <h2><%= raw @question.header %></h2>
   <p><%= raw @question.question %></p><br/>
   <div class="started-thread">
-    Posted by: <small class="help-inline"><%= user_name(@question.user_id) %></small>
+    Posted by: <small class="help-inline"><%= link_to user_name(@question.user_id), :controller=>"contact", :action=>"index" ,:user_id => @question.user_id %></small>
     <span class="reputation-score" title="karma <%= user_karma(@question.user_id) %>"><%= user_karma(@question.user_id) %></span>
   </div>
   <%= link_to 'Edit', edit_question_path(@question) %> |
   <%= link_to 'Back', questions_path %>
 </div>
 
-  <table style="width:700px;">
+<table style="width:700px;">
   <h2> Answers</h2><br />
   <% @answers.each do |ans| %>
 
@@ -45,7 +45,7 @@
             </div>
 
             <div class="started-thread">
-              Posted by: <small class="help-inline"><%= user_name(ans.user_id) %></small>
+              Posted by: <small class="help-inline"><%= link_to user_name(ans.user_id), :controller=>"contact", :action=>"index" ,:user_id => ans.user_id %></small>
               <span class="reputation-score" title="karma <%= user_karma(ans.user_id) %>"><%= user_karma(ans.user_id) %></span>
             </div>
 
@@ -57,9 +57,7 @@
               </h4>
               <span class="error-close">(click on this box to dismiss)</span>
             </div>
-
           </div>
-
         </div>
       </td>
     </tr>

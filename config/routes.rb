@@ -1,5 +1,8 @@
 QnaForum::Application.routes.draw do
 
+  get "contact/index"
+  post "contact/send_mail"
+
   devise_for :users
 
   root :to => "questions#index"
